@@ -1,3 +1,6 @@
+import { useState } from "react";
+import DrapeBackground from "./components/kokonutui/drape-background";
+import Intro from "./components/Intro";
 import Contact from "./components/Contact";
 import Education from "./components/Education";
 import Experience from "./components/Experience";
@@ -11,6 +14,8 @@ import { useTheme } from "./hooks/useTheme";
 
 export default function App() {
   const { theme, toggle } = useTheme();
+  const [ready, setReady] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
   return (
     <>
@@ -20,11 +25,13 @@ export default function App() {
       >
         Skip to content
       </a>
+      {!introDone && <Intro onReveal={() => setReady(true)} onDone={() => setIntroDone(true)} />}
+      <DrapeBackground />
       <ScrollProgress />
       <Navbar theme={theme} onToggleTheme={toggle} />
 
       <main id="main">
-        <Hero />
+        <Hero ready={ready} />
         <Skills />
         <Experience />
         <Projects />

@@ -72,9 +72,26 @@ export default function Contact() {
 
         <div className="mt-10 grid items-start gap-12 lg:grid-cols-2">
           <Reveal>
-            <p className="max-w-md text-lg leading-[1.7] text-ink-2">
-              Tell me about the role or project and I will reply by email.
-            </p>
+            <div className="flex items-end gap-6">
+              <div className="photo-slot aspect-[4/5] w-36 shrink-0 overflow-hidden rounded-2xl border border-line sm:w-44">
+                {profile.contactPhoto ? (
+                  <img
+                    src={profile.contactPhoto}
+                    alt={profile.contactPhotoAlt}
+                    width={352}
+                    height={440}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span aria-hidden="true" className="grid h-full w-full place-items-center font-display text-5xl text-[var(--on-back-2)]">
+                    JP
+                  </span>
+                )}
+              </div>
+              <p className="max-w-xs pb-1 text-lg leading-[1.7] text-ink-2">
+                Tell me about the role or project and I will reply by email.
+              </p>
+            </div>
             <ul className="mt-8 divide-y divide-line border-y border-line">
               {rows.map(({ icon: Icon, label, href }) => {
                 const content = (

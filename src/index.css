@@ -20,6 +20,7 @@
   --color-accent: var(--accent);
   --color-on-accent: var(--on-accent);
   --color-error: var(--error);
+  --color-back: var(--back);
 }
 
 :root {
@@ -29,6 +30,7 @@
   --bg: #f6efe3;
   --card: #fdf8ef;
   --raise: #efe5d3;
+  --nav: rgb(253 248 239 / 0.94);
   --ink: #3b0d19;
   --ink-2: #6b4a52;
   --ink-3: #7e5f66;
@@ -37,24 +39,45 @@
   --on-accent: #f6efe3;
   --error: #a11d2e;
   --slot: #e6d8c0;
-  --slot-figure: #d6c4a6;
+
+  --back: #6e1a2c;
+  --on-back: #f6efe3;
+  --on-back-2: rgb(246 239 227 / 0.72);
+
+  --fold-a: rgb(122 28 46 / 0.07);
+  --fold-b: rgb(59 13 25 / 0.07);
+  --hero-photo-opacity: 0.55;
+  --hero-fold-a: rgb(122 28 46 / 0.1);
+  --hero-fold-b: rgb(59 13 25 / 0.1);
+  --scrim: linear-gradient(90deg, var(--bg) 0%, rgb(246 239 227 / 0.9) 36%, rgb(246 239 227 / 0.35) 70%, transparent 100%);
 }
 
 .dark {
   color-scheme: dark;
 
-  --bg: #130a0d;
-  --card: #1b1015;
-  --raise: #251820;
+  --bg: #0b0709;
+  --card: #140c10;
+  --raise: #1e1218;
+  --nav: rgb(20 12 16 / 0.94);
   --ink: #f4ebdd;
-  --ink-2: #bdb0a0;
-  --ink-3: #9a8c7d;
+  --ink-2: #c2b4a8;
+  --ink-3: #9d8e84;
   --line: rgb(244 235 221 / 0.1);
   --accent: #efdcb9;
   --on-accent: #2a0c14;
   --error: #f4a5ae;
   --slot: #2a1620;
-  --slot-figure: #3a2029;
+
+  --back: #4a0f20;
+  --on-back: #f4ebdd;
+  --on-back-2: rgb(244 235 221 / 0.7);
+
+  --fold-a: rgb(122 28 46 / 0.2);
+  --fold-b: rgb(0 0 0 / 0.4);
+  --hero-photo-opacity: 0.9;
+  --hero-fold-a: rgb(122 28 46 / 0.22);
+  --hero-fold-b: rgb(0 0 0 / 0.32);
+  --scrim: linear-gradient(90deg, var(--bg) 0%, rgb(11 7 9 / 0.88) 34%, rgb(11 7 9 / 0.3) 68%, rgb(11 7 9 / 0.1) 100%);
 }
 
 @layer base {
@@ -238,4 +261,142 @@ html.theme-anim *::after {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Drape */
+.drape-sway {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, var(--fold-b) 78px, transparent 118px),
+    repeating-linear-gradient(90deg, var(--fold-a) 0 24px, transparent 72px 139px),
+    repeating-linear-gradient(90deg, transparent 0 121px, var(--fold-b) 160px, transparent 221px);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  animation: sway 32s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from {
+    transform: translateX(-2.5%);
+  }
+  to {
+    transform: translateX(2.5%);
+  }
+}
+
+/* Hero photo */
+.hero-parallax {
+  transform: translateY(calc(var(--sy, 0) * 0.14px));
+  will-change: transform;
+}
+.hero-photo-blur {
+  filter: grayscale(1) blur(30px) brightness(0.9);
+  transform: scale(1.1);
+  opacity: var(--hero-photo-opacity);
+  mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+}
+/* Clear spot that follows the pointer, resting over the face */
+.hero-clear {
+  mask-image: radial-gradient(circle 300px at var(--mx, 70%) var(--my, 50%), #000 0%, rgb(0 0 0 / 0.85) 40%, transparent 100%);
+}
+.hero-photo-clear {
+  filter: grayscale(1) contrast(1.02);
+  opacity: var(--hero-photo-opacity);
+}
+.hero-scrim {
+  background: var(--scrim);
+}
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 28%;
+  background: linear-gradient(to top, var(--bg), transparent);
+}
+
+/* Curtain in the hero: same folds as the page drape, parted around the pointer */
+.hero-curtain {
+  mask-image:
+    radial-gradient(circle 340px at var(--mx, 70%) var(--my, 50%), transparent 0%, transparent 28%, #000 100%),
+    linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-composite: intersect;
+}
+.hero-curtain-folds {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 46px, var(--hero-fold-b) 78px, transparent 118px),
+    repeating-linear-gradient(90deg, var(--hero-fold-a) 0 24px, transparent 72px 139px),
+    repeating-linear-gradient(90deg, transparent 0 121px, var(--hero-fold-b) 160px, transparent 221px);
+  transform: translateX(calc(var(--tx, 0) * 1px));
+}
+@media (max-width: 1023px) {
+  .hero-photo-blur {
+    mask-image: none;
+    filter: grayscale(1) blur(8px);
+    object-position: 62% 24%;
+  }
+  .hero-scrim {
+    background: linear-gradient(180deg, rgb(11 7 9 / 0.25) 0%, rgb(11 7 9 / 0.62) 45%, var(--bg) 96%);
+  }
+  :root:not(.dark) .hero-scrim {
+    background: linear-gradient(180deg, rgb(246 239 227 / 0.35) 0%, rgb(246 239 227 / 0.8) 45%, var(--bg) 96%);
+  }
+}
+
+/* Scroll cue */
+.scroll-cue-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: var(--line);
+  overflow: hidden;
+}
+.scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 14px;
+  background: var(--ink-2);
+  animation: cue 1.8s var(--ease) infinite;
+}
+@keyframes cue {
+  from {
+    transform: translateY(-14px);
+  }
+  to {
+    transform: translateY(40px);
+  }
+}
+
+/* Flip cards */
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  position: relative;
+  height: 100%;
+  min-height: 384px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease);
+}
+.flip.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.flip-front {
+  background: var(--card);
+  color: var(--ink);
+}
+.flip-back {
+  background: var(--back);
+  color: var(--on-back);
+  transform: rotateY(180deg);
+}
+.photo-slot {
+  background: var(--back);
 }

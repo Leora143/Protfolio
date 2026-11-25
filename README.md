@@ -2,8 +2,9 @@
 
 Personal portfolio built with **React 19, TypeScript, Vite and Tailwind CSS v4**.
 
-Design direction: plain-spoken, exact, a little warm. A printed résumé in ink and paper: burgundy and cream, a serif for large headlines,
-a mono for dates and index marks. Quiet surfaces, hairline borders, no gradients, no glow. Light mode is cream paper with burgundy ink.
+Design direction: plain-spoken, exact, a little warm. Black and burgundy, a serif for large headlines, a mono for dates and index marks.
+Quiet surfaces and hairline borders. The idea running through it is "surface and underneath": the intro curtain, the hero headline and the flip cards all show one thing first and the layer below it second.
+Dark is the default. Light mode is cream paper with burgundy ink.
 
 ## Run it
 
@@ -77,3 +78,19 @@ git push -u origin main
 
 - **Vercel or Netlify:** import the GitHub repo. Build command `npm run build`, output directory `dist`.
 - **GitHub Pages:** set `base: "/portfolio/"` in `vite.config.ts` (use your repo name), build, and publish `dist`.
+
+
+## What is where (new in this version)
+
+| What | Where |
+| --- | --- |
+| "Me?" intro (about 2 seconds, plays on every visit, reduced-motion users get a plain fade) | `src/components/Intro.tsx` |
+| Hero photo (soft behind the words, sharper at the face) | `public/portrait.jpg`, styles `.hero-photo-*` in `src/index.css` |
+| Contact picture slot | set `contactPhoto: "/contact.jpg"` in `src/data/portfolio.ts` and put the file in `public/` (4:5, at least 704 x 880). Empty, it shows a "JP" monogram. |
+| Drape background | `src/components/kokonutui/drape-background.tsx`, colours `--fold-a` and `--fold-b` |
+| Floating navbar that folds on scroll | `src/components/kokonutui/morphic-navbar.tsx` |
+| Skill flip cards | `src/components/kokonutui/card-flip.tsx`, icons in `src/components/skillIcons.ts` |
+| Text animation, border trail, morphing dialog | `src/components/core/` |
+
+The components in `kokonutui/` and `core/` are hand-written to match the kokonutui and motion-primitives APIs. To use the originals,
+run `npx shadcn@latest add @kokonutui/drape-background` and so on from a machine with normal network access. The `@` alias and `components.json` are already set up.

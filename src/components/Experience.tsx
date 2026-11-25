@@ -1,8 +1,11 @@
 import { earlierExperience, experience } from "../data/portfolio";
+import { BorderTrail } from "@/components/core/border-trail";
+import { skillIcon } from "./skillIcons";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
 const spans = ["md:col-span-4", "md:col-span-2", "md:col-span-2", "md:col-span-4"];
+const durations = [9, 11, 10, 12];
 
 export default function Experience() {
   const { role, company, period, highlights, episodes, stack } = experience;
@@ -32,11 +35,15 @@ export default function Experience() {
             </ul>
 
             <ul className="mt-8 flex flex-wrap gap-2">
-              {stack.map((tech) => (
-                <li key={tech} className="tag">
-                  {tech}
-                </li>
-              ))}
+              {stack.map((tech) => {
+                const Icon = skillIcon(tech);
+                return (
+                  <li key={tech} className="tag gap-2">
+                    <Icon size={14} aria-hidden="true" className="text-ink-3" />
+                    {tech}
+                  </li>
+                );
+              })}
             </ul>
           </article>
         </Reveal>
@@ -48,7 +55,13 @@ export default function Experience() {
         <div className="mt-6 grid gap-4 md:grid-cols-6">
           {episodes.map((episode, i) => (
             <Reveal key={episode.no} delay={(i % 2) * 50} className={`h-full ${spans[i % spans.length]}`}>
-              <article className="card flex h-full flex-col p-6">
+              <article className="card relative flex h-full flex-col p-6 sm:p-8">
+                <BorderTrail
+                  size={72}
+                  radius={16}
+                  className="bg-gradient-to-l from-accent via-accent/50 to-transparent"
+                  transition={{ repeat: Infinity, duration: durations[i % durations.length], ease: "linear" }}
+                />
                 <p className="index">{episode.no}</p>
                 <h4 className="mt-4 text-xl font-medium">{episode.title}</h4>
                 <p className="mt-2 text-[15px] leading-[1.65] text-ink-2">{episode.text}</p>

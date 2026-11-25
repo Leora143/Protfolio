@@ -1,3 +1,14 @@
+import { Plus } from "lucide-react";
+import {
+  MorphingDialog,
+  MorphingDialogClose,
+  MorphingDialogContainer,
+  MorphingDialogContent,
+  MorphingDialogDescription,
+  MorphingDialogSubtitle,
+  MorphingDialogTitle,
+  MorphingDialogTrigger,
+} from "@/components/core/morphing-dialog";
 import { projects } from "../data/portfolio";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
@@ -11,66 +22,81 @@ export default function Projects() {
     <section id="projects" className="scroll-mt-16 border-t border-line px-6 py-24 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <SectionHeading index="03" title="Projects" />
+        <p className="mt-6 max-w-xl text-ink-2">Open a project to read what it does and what it is built with.</p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {projects.map((project, i) => {
-            const lead = i === 0;
-            return (
-              <Reveal
-                key={project.title}
-                delay={lead ? 0 : (i - 1) * 50}
-                className={`h-full ${lead ? "md:col-span-3" : ""}`}
-              >
-                <article
-                  className={`card flex h-full flex-col p-6 ${
-                    lead ? "gap-6 md:flex-row md:items-end md:justify-between md:p-8" : ""
-                  }`}
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {projects.map((project, i) => (
+            <Reveal key={project.title} delay={(i % 2) * 50} className="h-full">
+              <MorphingDialog transition={{ type: "spring", bounce: 0.05, duration: 0.3 }}>
+                <MorphingDialogTrigger
+                  style={{ borderRadius: 16 }}
+                  className="card flex h-full min-h-[184px] flex-col justify-between p-6 transition-colors duration-150 hover:border-[color-mix(in_srgb,var(--ink)_28%,transparent)] sm:p-8"
                 >
-                  <div className="flex-1">
-                    <h3
-                      className={
-                        lead
-                          ? "font-display text-3xl font-normal leading-[1.15] tracking-[-0.01em]"
-                          : "text-xl font-medium"
-                      }
-                    >
+                  <span className="index">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="flex items-end justify-between gap-4">
+                    <MorphingDialogTitle className="font-display text-2xl font-normal leading-[1.2] tracking-[-0.01em]">
                       {project.title}
-                    </h3>
-                    <p className={`mt-3 leading-[1.65] text-ink-2 ${lead ? "max-w-2xl" : "text-[15px]"}`}>
-                      {project.text}
-                    </p>
+                    </MorphingDialogTitle>
+                    <span
+                      aria-hidden="true"
+                      className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-line text-ink-2"
+                    >
+                      <Plus size={16} strokeWidth={1.5} />
+                    </span>
                   </div>
+                </MorphingDialogTrigger>
 
-                  <div className={lead ? "md:max-w-xs" : "mt-6"}>
-                    <ul className={`flex flex-wrap gap-2 ${lead ? "md:justify-end" : ""}`}>
-                      {project.tags.map((tag) => (
-                        <li key={tag} className="tag">
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {(project.demo || project.code) && (
-                      <div className={`mt-6 flex flex-wrap gap-6 text-sm font-medium ${lead ? "md:justify-end" : ""}`}>
-                        {project.demo && (
-                          <a href={project.demo} target="_blank" rel="noreferrer" className={linkClass}>
-                            <ExternalIcon />
-                            Live demo
-                          </a>
+                <MorphingDialogContainer>
+                  <MorphingDialogContent
+                    style={{ borderRadius: 24 }}
+                    className="pointer-events-auto relative flex max-h-[85svh] w-full flex-col border border-line bg-card text-ink sm:w-[560px]"
+                  >
+                    <div className="overflow-y-auto p-6 sm:p-8">
+                      <p className="index">{String(i + 1).padStart(2, "0")}</p>
+                      <MorphingDialogTitle className="mt-4 pr-10 font-display text-3xl font-normal leading-[1.15] tracking-[-0.01em]">
+                        {project.title}
+                      </MorphingDialogTitle>
+                      <MorphingDialogSubtitle className="mt-4">
+                        <ul className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <li key={tag} className="tag">
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
+                      </MorphingDialogSubtitle>
+                      <MorphingDialogDescription
+                        variants={{
+                          initial: { opacity: 0, y: 16 },
+                          animate: { opacity: 1, y: 0 },
+                          exit: { opacity: 0, y: 16 },
+                        }}
+                      >
+                        <p className="mt-6 leading-[1.7] text-ink-2">{project.text}</p>
+                        {(project.demo || project.code) && (
+                          <div className="mt-6 flex flex-wrap gap-6 text-sm font-medium">
+                            {project.demo && (
+                              <a href={project.demo} target="_blank" rel="noreferrer" className={linkClass}>
+                                <ExternalIcon />
+                                Live demo
+                              </a>
+                            )}
+                            {project.code && (
+                              <a href={project.code} target="_blank" rel="noreferrer" className={linkClass}>
+                                <GithubIcon />
+                                Code
+                              </a>
+                            )}
+                          </div>
                         )}
-                        {project.code && (
-                          <a href={project.code} target="_blank" rel="noreferrer" className={linkClass}>
-                            <GithubIcon />
-                            Code
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+                      </MorphingDialogDescription>
+                    </div>
+                    <MorphingDialogClose className="grid h-9 w-9 place-items-center rounded-lg border border-line text-ink-2 transition-colors duration-150 hover:bg-raise hover:text-ink" />
+                  </MorphingDialogContent>
+                </MorphingDialogContainer>
+              </MorphingDialog>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
