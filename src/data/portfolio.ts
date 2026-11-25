@@ -8,7 +8,7 @@ export const profile = {
   photo: "/portrait.jpg",
   photoAlt: "Jisna smiling with her eyes closed, hair in the wind, seated by a misty coastal cliff",
   // Contact section picture. Put the file in public/ and set the path, e.g. "/contact.jpg" (4:5, at least 704 x 880).
-  contactPhoto: "" as string,
+  contactPhoto: "/contacts.jpg" as string,
   contactPhotoAlt: "Portrait of Jisna",
   resume: "/Jisna_P_J_React_Developer_Resume.pdf",
 } as const;

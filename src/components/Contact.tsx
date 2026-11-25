@@ -89,7 +89,7 @@ export default function Contact() {
                 )}
               </div>
               <p className="max-w-xs pb-1 text-lg leading-[1.7] text-ink-2">
-                Tell me about the role or project and I will reply by email.
+                Tell me about the role or project!!!!.
               </p>
             </div>
             <ul className="mt-8 divide-y divide-line border-y border-line">
