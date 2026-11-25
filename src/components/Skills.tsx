@@ -1,22 +1,53 @@
 import { skillGroups } from "../data/portfolio";
 import CardFlip from "./kokonutui/card-flip";
 import { groupIcons, skillIcon } from "./skillIcons";
-import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import { Undo2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Skills() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [entered, setEntered] = useState(false);
+
+  // Cards are always in the layout. When the grid scrolls into view they flip in from edge-on, one after another.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setEntered(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setEntered(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section id="skills" className="scroll-mt-16 border-t border-line px-6 py-24 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <SectionHeading index="01" title="Skills" />
         <p className="mt-6 max-w-xl text-ink-2">Hover or tap a card to see what is inside.</p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div ref={gridRef} className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3" style={{ perspective: 1400 }}>
           {skillGroups.map((group, i) => {
             const GroupIcon = groupIcons[group.title] ?? skillIcon(group.title);
             return (
-              <Reveal key={group.title} delay={(i % 3) * 50} className="h-full">
+              <div
+                key={group.title}
+                className="h-full"
+                style={{
+                  transform: entered ? "none" : "rotateY(90deg)",
+                  transition: "transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
+                  transitionDelay: entered ? `${i * 100}ms` : "0ms",
+                }}
+              >
                 <CardFlip
                   label={group.title}
                   className="h-full"
@@ -52,7 +83,7 @@ export default function Skills() {
                     </div>
                   }
                 />
-              </Reveal>
+              </div>
             );
           })}
         </div>
