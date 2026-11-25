@@ -333,6 +333,21 @@ html.theme-anim *::after {
   transform: translateX(calc(var(--tx, 0) * 1px));
 }
 @media (max-width: 1023px) {
+  .hero-curtain {
+    mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  }
+  /* No cursor on touch screens, so the curtain moves on its own */
+  .hero-curtain-folds {
+    animation: curtain-drift 9s ease-in-out infinite alternate;
+  }
+  @keyframes curtain-drift {
+    from {
+      transform: translateX(-5%);
+    }
+    to {
+      transform: translateX(5%);
+    }
+  }
   .hero-photo-blur {
     mask-image: none;
     filter: grayscale(1) blur(8px);

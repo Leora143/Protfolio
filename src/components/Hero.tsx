@@ -90,7 +90,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             alt=""
             width={1000}
             height={1777}
-            className="hero-photo-blur absolute inset-y-0 right-0 h-full w-full object-cover object-[50%_40%] lg:w-[62%]"
+            className="hero-photo-blur absolute inset-y-0 right-0 hidden h-full w-full object-cover lg:block object-[50%_40%] lg:w-[62%]"
           />
         </div>
         <div className="hero-clear absolute inset-0 hidden lg:block">
@@ -104,7 +104,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             />
           </div>
         </div>
-        <div className="hero-scrim absolute inset-0" />
+        <div className="hero-scrim absolute inset-0 hidden lg:block" />
         {/* Curtain over the whole hero, parted around the pointer */}
         <div className="hero-curtain absolute inset-0">
           <div className="hero-curtain-folds absolute inset-y-0 -inset-x-[6%]" />
