@@ -15,7 +15,7 @@ import SectionHeading from "./SectionHeading";
 import { ExternalIcon, GithubIcon } from "./icons";
 
 const linkClass =
-  "inline-flex items-center gap-2 text-accent underline decoration-1 underline-offset-4 hover:decoration-2";
+  "inline-flex items-center gap-2 text-accent-text underline decoration-1 underline-offset-4 hover:decoration-2";
 
 export default function Projects() {
   return (

@@ -89,7 +89,7 @@ export default function Contact() {
                 )}
               </div>
               <p className="max-w-xs pb-1 text-lg leading-[1.7] text-ink-2">
-                Tell me about the role or project!!!!.
+                Tell me about the role or project and I will reply by email.
               </p>
             </div>
             <ul className="mt-8 divide-y divide-line border-y border-line">
@@ -107,12 +107,12 @@ export default function Contact() {
                         href={href}
                         target={href.startsWith("http") ? "_blank" : undefined}
                         rel={href.startsWith("http") ? "noreferrer" : undefined}
-                        className="flex items-center gap-3 py-4 transition-colors duration-150 hover:text-accent"
+                        className="flex items-center gap-3 py-4 transition-colors duration-150 hover:text-accent-text"
                       >
                         {content}
                       </a>
                     ) : (
-                      <div className="flex items-center gap-3 py-4 transition-colors duration-150 hover:text-accent">
+                      <div className="flex items-center gap-3 py-4 transition-colors duration-150 hover:text-accent-text">
                         {content}
                       </div>
                     )}

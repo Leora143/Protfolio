@@ -2,9 +2,9 @@
 
 Personal portfolio built with **React 19, TypeScript, Vite and Tailwind CSS v4**.
 
-Design direction: plain-spoken, exact, a little warm. Black and burgundy, a serif for large headlines, a mono for dates and index marks.
+Design direction: plain-spoken, exact, a little warm. Black and red, a serif for large headlines, a mono for dates and index marks.
 Quiet surfaces and hairline borders. The idea running through it is "surface and underneath": the intro curtain, the hero headline and the flip cards all show one thing first and the layer below it second.
-Dark is the default. Light mode is cream paper with burgundy ink.
+Dark is the default. Light mode is warm white with deep red accents.
 
 ## Run it
 
@@ -39,7 +39,7 @@ Needs Node 20 or newer.
 | `--ink` | `#F4EBDD` | `#3B0D19` | primary text |
 | `--ink-2` | `#BDB0A0` | `#6B4A52` | body text |
 | `--ink-3` | `#9A8C7D` | `#7E5F66` | dates, captions |
-| `--accent` | `#EFDCB9` cream | `#7A1C2E` burgundy | primary button, selection, status dot |
+| `--accent` | `#D9242B` red | `#C1121F` red | primary button, selection, status dot |
 
 ## Features
 

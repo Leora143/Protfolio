@@ -47,7 +47,7 @@ export default function Intro({ onReveal, onDone }: IntroProps) {
       transition={reduce ? { duration: 0.3 } : { duration: 0.75, ease: [0.76, 0, 0.24, 1] }}
     >
       {reduce ? (
-        <p className="font-display text-[clamp(96px,22vw,280px)] font-normal leading-none tracking-[-0.03em] text-[#f4ebdd]">Me?</p>
+        <p className="font-display text-[clamp(96px,22vw,280px)] font-normal leading-none tracking-[-0.03em] text-[#f4efec]">Me?</p>
       ) : (
         <TextEffect
           as="p"
@@ -55,7 +55,7 @@ export default function Intro({ onReveal, onDone }: IntroProps) {
           preset="fade-in-blur"
           speedReveal={1.2}
           delay={0.15}
-          className="font-display text-[clamp(96px,22vw,280px)] font-normal leading-none tracking-[-0.03em] text-[#f4ebdd]"
+          className="font-display text-[clamp(96px,22vw,280px)] font-normal leading-none tracking-[-0.03em] text-[#f4efec]"
         >
           Me?
         </TextEffect>
