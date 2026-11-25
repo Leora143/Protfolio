@@ -6,13 +6,17 @@ interface CardFlipProps {
   back: ReactNode;
   label: string;
   className?: string;
+  /** Show the back from outside (for example while scrolling). Hover and tap still work. */
+  showBack?: boolean;
+  /** Stagger, in ms, applied to the flip. */
+  delay?: number;
 }
 
 /** Two-faced card. Hover flips it on pointer devices, click, tap or Enter/Space pins it. */
-export default function CardFlip({ front, back, label, className }: CardFlipProps) {
+export default function CardFlip({ front, back, label, className, showBack = false, delay = 0 }: CardFlipProps) {
   const [hover, setHover] = useState(false);
   const [pinned, setPinned] = useState(false);
-  const flipped = hover || pinned;
+  const flipped = showBack !== (hover || pinned); // hover or tap flips the opposite side
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -33,7 +37,7 @@ export default function CardFlip({ front, back, label, className }: CardFlipProp
       onPointerLeave={(e) => e.pointerType === "mouse" && setHover(false)}
       className={cn("flip group cursor-pointer rounded-2xl outline-offset-4", flipped && "is-flipped", className)}
     >
-      <div className="flip-inner">
+      <div className="flip-inner" style={{ transitionDelay: `${delay}ms` }}>
         <div className="flip-face flip-front" aria-hidden={flipped}>
           {front}
         </div>
